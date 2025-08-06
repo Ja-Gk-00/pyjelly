@@ -66,34 +66,3 @@ jobs:
           tag: "${{ github.ref_name }}"
           name: "${{ github.ref_name }}"
           generateReleaseNotes: true
-
-  release-docs:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: true
-          fetch-depth: 0
-
-      - uses: astral-sh/setup-uv@v6
-        with:
-          enable-cache: true
-  
-      - name: Deploy site
-        run: |
-          set -Eeuxo pipefail
-          export TAG='${{ github.ref_name }}'
-          uv sync --group docs
-          git fetch origin gh-pages --depth=1
-
-          git config user.name github-actions[bot]
-          git config user.email github-actions[bot]@users.noreply.github.com
-
-          if [[ $TAG == v* ]]
-          then
-            V_MAJOR=`echo ${TAG#v} | awk -F '.' '{print $1}'`
-            V_MINOR=`echo ${TAG#v} | awk -F '.' '{print $2}'`
-            uv run mike deploy --push --alias-type=redirect --update-aliases "${V_MAJOR}.${V_MINOR}.x" stable "${TAG#v}"
-          else
-            uv run mike deploy --push --alias-type=redirect --title "Development version" --update-aliases dev latest
-          fi
