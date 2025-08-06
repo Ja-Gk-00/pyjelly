@@ -31,7 +31,7 @@ jobs:
         with:
           fetch-depth: 0
           submodules: true
-          persist-credentials: false
+          persist-credentials: true
 
       - uses: astral-sh/setup-uv@v6
         with:
@@ -44,6 +44,14 @@ jobs:
           version="${GITHUB_REF#refs/tags/v}"
           echo ">> uv version $version"
           uv version "$version"
+      
+      - name: Commit version bump
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pyproject.toml
+          git commit -m "chore: bump version to $version"
+          git push origin main
     
       - name: Validate tag
         id: validate-tag
@@ -61,7 +69,7 @@ jobs:
       - name: Build package distributions
         id: build
         run: uv build --out-dir dist
-        
+
       - name: 'Create a GitHub release'
         uses: ncipollo/release-action@v1.18.0
         with:
