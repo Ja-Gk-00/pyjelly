@@ -61,10 +61,7 @@ jobs:
       - name: Build package distributions
         id: build
         run: uv build --out-dir dist
-
-      - name: Publish package distributions
-        uses: pypa/gh-action-pypi-publish@release/v1
-
+        
       - name: 'Create a GitHub release'
         uses: ncipollo/release-action@v1.18.0
         with:
