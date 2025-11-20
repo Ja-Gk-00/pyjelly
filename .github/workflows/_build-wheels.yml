@@ -57,11 +57,13 @@ jobs:
         with:
           enable-cache: true
 
-      - name: Bump project version to match tag
-        id: automatic-version
+      - name: Set project version to match tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: bash
         run: |
           set -Eeuxo pipefail
           version="${GITHUB_REF#refs/tags/v}"
+          uv --version
           uv version "$version"
 
       # QEMU only for Linux aarch64 cross-builds
