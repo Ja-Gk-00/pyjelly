@@ -37,18 +37,7 @@ jobs:
         with:
           fetch-depth: 0
           submodules: true
-
-      - uses: astral-sh/setup-uv@v7
-        with:
-          enable-cache: true
-
-      - name: Bump project version to match tag
-        id: automatic-version
-        run: |
-          set -Eeuxo pipefail
-          version="${GITHUB_REF#refs/tags/v}"
-          uv version "$version"
-
+      
       # Fix symlink checkout on Windows
       - name: Windows symlink fix for packaging
         if: runner.os == 'Windows'
@@ -67,7 +56,13 @@ jobs:
       - uses: astral-sh/setup-uv@v7
         with:
           enable-cache: true
-          python-version: "3.11"
+
+      - name: Bump project version to match tag
+        id: automatic-version
+        run: |
+          set -Eeuxo pipefail
+          version="${GITHUB_REF#refs/tags/v}"
+          uv version "$version"
 
       # QEMU only for Linux aarch64 cross-builds
       - uses: docker/setup-qemu-action@v3
