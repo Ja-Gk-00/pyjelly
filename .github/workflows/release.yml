@@ -81,6 +81,7 @@ jobs:
         with:
           repository-url: https://test.pypi.org/legacy/
           skip-existing: true
+          verbose: true
 
       - name: 'Create a GitHub release'
         uses: ncipollo/release-action@v1.20.0
