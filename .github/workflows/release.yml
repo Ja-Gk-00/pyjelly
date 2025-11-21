@@ -68,7 +68,7 @@ jobs:
 
       - name: Build package distributions
         id: build
-        run: uv build --sdist --wheel --out-dir dist
+        run: uv build --sdist --out-dir dist
 
       - name: Download wheel artifacts
         uses: actions/download-artifact@v4
