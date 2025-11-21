@@ -1334,6 +1334,24 @@ wheels = [
 
 [[package]]
 name = "pyjelly"
+version = "0.6.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "protobuf" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/54/00/4517b0efd36485f9abfaa85cee9b48d3872eade4bff825af8f0e81499dc7/pyjelly-0.6.2.tar.gz", hash = "sha256:ad7254cc2f0b9d3b9a18059d7096669d86f9510f7bf658f0011ca1ea43bc5f7f", size = 772844, upload-time = "2025-09-29T15:07:07.565Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/aa/f8/6be6f10ffc0dd241fe5497f20528a161a974f649e4d25a7a6113e8cf9e0d/pyjelly-0.6.2-py3-none-any.whl", hash = "sha256:ba22053fced114541dc45a1c7ffcca57d02a47caba9ecd156430614e55cda9d5", size = 50584, upload-time = "2025-09-29T15:07:06.394Z" },
+]
+
+[package.optional-dependencies]
+rdflib = [
+    { name = "rdflib" },
+]
+
+[[package]]
+name = "pyjelly-test-instance"
 version = "0.0.0"
 source = { editable = "." }
 dependencies = [
